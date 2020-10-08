@@ -18,9 +18,9 @@ export const deleteFromCart = (index) => async (dispatch) => {
   });
 };
 
-export const editCartQuantity = (product, increment) => async (dispatch) => {
+export const editCartQuantity = (index, increment) => async (dispatch) => {
   return dispatch({
     type: EDIT_PRODUCT_QUANTITY_CART,
-    payload: { item: product, increment: increment },
+    payload: { id: index, increment: increment },
   });
 };

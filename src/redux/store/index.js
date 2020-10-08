@@ -16,7 +16,7 @@ const logger = createLogger({
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['product'],
+  whitelist: ['product', 'cart'],
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

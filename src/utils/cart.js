@@ -2,10 +2,8 @@ import { sales } from './constants';
 
 export const calcTotal = (cartList) => {
   let total = 0;
-  console.log(cartList);
   cartList.map((prod) => {
     const { product } = prod;
-    console.log(product, prod, product.sale.id === sales[1].id);
     if (!product.sale || product.sale.id === sales[0].id) {
       const calc = product.price * prod.quantity;
       total += calc;
@@ -22,4 +20,11 @@ export const calcTotal = (cartList) => {
     }
   });
   return total;
+};
+
+export const formatCurrency = (num) => {
+  return Number.parseFloat(num).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
 };

@@ -94,7 +94,7 @@ const Product = ({
   };
 
   return (
-    <Grid>
+    <div>
       <Card className={classes.root}>
         <CardActionArea>
           <CardMedia className={classes.media} image={image} />
@@ -138,7 +138,7 @@ const Product = ({
           </div>
         </CardActions>
       </Card>
-    </Grid>
+    </div>
   );
 };
 
