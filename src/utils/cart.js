@@ -18,6 +18,7 @@ export const calcTotal = (cartList) => {
       const calc = product.price * rest + 10 * promo;
       total += calc;
     }
+    return prod;
   });
   return total;
 };

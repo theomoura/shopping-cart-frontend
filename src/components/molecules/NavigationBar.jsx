@@ -10,8 +10,6 @@ import {
   withStyles,
 } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
-import Logo from '../../assets/images/logo.jpg';
-import { Icon } from '../atoms';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import { useSelector } from 'react-redux';
 

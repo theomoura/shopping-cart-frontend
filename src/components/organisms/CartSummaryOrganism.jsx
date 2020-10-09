@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Button, makeStyles, Typography } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import { formatCurrency } from '../../utils/cart';
 import { ShoppingBasket } from '@material-ui/icons';
 import { Text } from '../atoms';

@@ -1,15 +1,8 @@
-import {
-  AppBar,
-  Button,
-  makeStyles,
-  Toolbar,
-  Typography,
-} from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Add';
 
-import { Product } from '../../components/molecules';
 import { ProductOrganism } from '../../components/organisms';
 import {
   deleteProduct,

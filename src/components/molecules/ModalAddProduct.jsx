@@ -14,14 +14,14 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import { useState } from 'react';
-import { sales } from '../../utils/constants';
+import { sales, defaultImage } from '../../utils/constants';
 import { NumberFormatCustom } from '../atoms';
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles({
   formControl: {
     minWidth: 200,
   },
-}));
+});
 
 const ModalAddProduct = ({ handleSave, handleClose, open }) => {
   const initalState = {
@@ -32,10 +32,13 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
   };
   const classes = useStyles();
   const [newProduct, setNewProduct] = useState(initalState);
+  const [formErrors, setFormErros] = useState({
+    title: false,
+    price: false,
+  });
 
   const handleInputChange = (event) => {
     setNewProduct({ ...newProduct, [event.target.name]: event.target.value });
-    console.log(newProduct);
   };
 
   const clearForm = () => {
@@ -45,12 +48,34 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
   const handleCloseModal = () => {
     handleClose();
     clearForm();
+    setFormErros({
+      title: false,
+      price: false,
+    });
   };
 
   const handleSaveModal = () => {
-    handleSave(newProduct);
-    handleClose();
-    clearForm();
+    const errors = validate(newProduct);
+
+    if (Object.keys(errors).length === 0) {
+      if (!newProduct.image) newProduct.image = defaultImage;
+      handleSave(newProduct);
+      handleClose();
+      clearForm();
+    }
+  };
+
+  const validate = (values) => {
+    let errors = {};
+    console.log(values);
+    if (!values.title) {
+      errors.title = true;
+    }
+    if (!values.price || Number.parseInt(values.price) === 0) {
+      errors.price = true;
+    }
+    setFormErros(errors);
+    return errors;
   };
 
   return (
@@ -67,6 +92,7 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
             margin="dense"
             label="Nome"
             name="title"
+            error={formErrors.title}
             value={newProduct.title}
             fullWidth
             onChange={handleInputChange}
@@ -75,6 +101,7 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
             margin="dense"
             label="Preço"
             name="price"
+            error={formErrors.price}
             value={newProduct.price}
             fullWidth
             onChange={handleInputChange}

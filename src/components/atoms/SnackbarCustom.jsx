@@ -2,8 +2,6 @@ import { Snackbar } from '@material-ui/core';
 import MuiAlert from '@material-ui/lab/Alert';
 import React from 'react';
 
-// import { Container } from './styles';
-
 function SnackbarCustom({ open, message, type, handleClose = () => {} }) {
   return (
     <>

@@ -68,6 +68,7 @@ function CartListOrganism({ cartList, handleChangeQuantity, handleDelete }) {
                     <div className={classes.productContainer}>
                       {row.product.image && (
                         <img
+                          alt={'cartImg'}
                           src={row.product.image}
                           className={classes.image}
                         />
