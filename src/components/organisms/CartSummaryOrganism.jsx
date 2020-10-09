@@ -32,10 +32,10 @@ function CartSummaryOrganism({ total, numProdutos }) {
         <Text variant="body2" color="textPrimary">
           {numProdutos} produtos
         </Text>
-        <Text variant="body1" color="textPrimary" bold>
+        <Text variant="subtitle1" color="textPrimary" bold>
           total:
         </Text>
-        <Text variant="body1" color="textPrimary">
+        <Text variant="subtitle1" color="textPrimary">
           {formatCurrency(total)}
         </Text>
       </div>

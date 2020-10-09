@@ -1,5 +1,5 @@
 import { Button, makeStyles } from '@material-ui/core';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SaveIcon from '@material-ui/icons/Add';
 
@@ -8,9 +8,10 @@ import {
   deleteProduct,
   editProduct,
   insertProduct,
+  retrieveProducts,
 } from '../../redux/actions/productAction';
 import { insertToCart } from '../../redux/actions/cartAction';
-import { SnackbarCustom, Text } from '../../components/atoms';
+import { Loading, SnackbarCustom, Text } from '../../components/atoms';
 
 const useStyles = makeStyles({
   titleContainer: {
@@ -31,6 +32,14 @@ const Home = () => {
   const [openSnackbarError, setOpenSnackbarError] = useState(false);
   const [openSnackbarBuy, setOpenSnackbarBuy] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setLoading(true);
+    dispatch(retrieveProducts()).then((_) => {
+      setLoading(false);
+    });
+  }, []);
 
   const handleClickOpen = () => {
     setOpenModal(!openModal);
@@ -40,8 +49,8 @@ const Home = () => {
     dispatch(editProduct(obj, index));
   };
 
-  const handleDelete = (index) => {
-    isEditing ? setOpenSnackbarError(true) : dispatch(deleteProduct(index));
+  const handleDelete = (index, id) => {
+    isEditing ? setOpenSnackbarError(true) : dispatch(deleteProduct(index, id));
   };
 
   const handleSaveNewProduct = (product) => {
@@ -73,6 +82,7 @@ const Home = () => {
           </Button>
         </div>
       </div>
+      <Loading loading={loading} />
       <ProductOrganism
         productList={productList}
         handleSaveEdit={handleSaveEdit}
@@ -83,6 +93,7 @@ const Home = () => {
         handleBuy={handleBuy}
         openModal={openModal}
         handleClickOpen={handleClickOpen}
+        setOpenSnackbarError={setOpenSnackbarError}
       />
       <SnackbarCustom
         open={openSnackbarError}

@@ -67,7 +67,6 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
 
   const validate = (values) => {
     let errors = {};
-    console.log(values);
     if (!values.title) {
       errors.title = true;
     }

@@ -1,6 +1,6 @@
 import { makeStyles } from '@material-ui/core';
 import React from 'react';
-import { ModalAddProduct, Product } from '../molecules';
+import { ModalAddProduct, NoProducts, Product } from '../molecules';
 
 const useStyles = makeStyles({
   modalContainer: {
@@ -35,14 +35,12 @@ const ProductOrganism = ({
   return (
     <div>
       <div className={classes.container}>
+        {productList.length === 0 && <NoProducts />}
         {productList.map((item, index) => {
           return (
             <div className={classes.cardContainer} key={index}>
               <Product
-                image={item.image}
-                title={item.title}
-                price={item.price}
-                sale={item.sale}
+                product={item}
                 index={index}
                 handleSave={handleSaveEdit}
                 handleDelete={handleDelete}

@@ -49,10 +49,7 @@ const Price = withStyles({
 })(TextField);
 
 const Product = ({
-  title,
-  price,
-  image,
-  sale,
+  product,
   index,
   handleSave,
   handleDelete,
@@ -62,7 +59,13 @@ const Product = ({
   handleBuy,
 }) => {
   const [edit, setEdit] = useState(false);
-  const [productObj, setProductObj] = useState({ title, price, image, sale });
+  const { title, price, image } = product;
+  const [productObj, setProductObj] = useState({
+    title,
+    price,
+    image,
+    ...product,
+  });
   const classes = useStyles();
 
   const handleInputChange = (event) => {
@@ -123,7 +126,7 @@ const Product = ({
             <Button
               size="small"
               color="primary"
-              onClick={() => handleDelete(index)}>
+              onClick={() => handleDelete(index, product._id)}>
               Deletar
             </Button>
           </div>
