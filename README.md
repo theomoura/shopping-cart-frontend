@@ -28,3 +28,6 @@ $ yarn test
 # test coverage
 $ yarn test:cov
 ```
+## Example
+
+You can check a live example running [here](https://shopping-cart-tm.netlify.app/) 
