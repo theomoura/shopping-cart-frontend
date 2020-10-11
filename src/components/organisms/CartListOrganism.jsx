@@ -32,6 +32,14 @@ const useStyles = makeStyles({
 function CartListOrganism({ cartList, handleChangeQuantity, handleDelete }) {
   const classes = useStyles();
 
+  const tableHeaders = [
+    { name: 'produto', align: 'left' },
+    { name: 'preço', align: 'left' },
+    { name: 'quantidade', align: 'center' },
+    { name: 'promoção', align: 'center' },
+    { name: '', align: 'center' },
+  ];
+
   return (
     <div className={classes.container}>
       <div className={classes.tableContainer}>
@@ -46,19 +54,13 @@ function CartListOrganism({ cartList, handleChangeQuantity, handleDelete }) {
             </colgroup>
             <TableHead>
               <TableRow>
-                <TableCell>
-                  <Box fontWeight={600}>produto</Box>
-                </TableCell>
-                <TableCell>
-                  <Box fontWeight={600}>preço</Box>
-                </TableCell>
-                <TableCell align="center">
-                  <Box fontWeight={600}>quantidade</Box>
-                </TableCell>
-                <TableCell align="center">
-                  <Box fontWeight={600}>promoção</Box>
-                </TableCell>
-                <TableCell align="center" size="small" />
+                {tableHeaders.map((item, index) => {
+                  return (
+                    <TableCell align={item.align} key={index}>
+                      <Box fontWeight={600}>{item.name}</Box>
+                    </TableCell>
+                  );
+                })}
               </TableRow>
             </TableHead>
             <TableBody>

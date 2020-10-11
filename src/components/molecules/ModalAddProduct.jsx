@@ -15,6 +15,7 @@ import {
 import React from 'react';
 import { useState } from 'react';
 import { sales, defaultImage } from '../../utils/constants';
+import { validate } from '../../utils/product';
 import { NumberFormatCustom } from '../atoms';
 
 const useStyles = makeStyles({
@@ -55,7 +56,7 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
   };
 
   const handleSaveModal = () => {
-    const errors = validate(newProduct);
+    const errors = validate(newProduct, setFormErros);
 
     if (Object.keys(errors).length === 0) {
       if (!newProduct.image) newProduct.image = defaultImage;
@@ -63,18 +64,6 @@ const ModalAddProduct = ({ handleSave, handleClose, open }) => {
       handleClose();
       clearForm();
     }
-  };
-
-  const validate = (values) => {
-    let errors = {};
-    if (!values.title) {
-      errors.title = true;
-    }
-    if (!values.price || Number.parseInt(values.price) === 0) {
-      errors.price = true;
-    }
-    setFormErros(errors);
-    return errors;
   };
 
   return (

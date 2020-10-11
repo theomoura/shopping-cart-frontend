@@ -3,9 +3,10 @@ import MuiAlert from '@material-ui/lab/Alert';
 import React from 'react';
 
 function SnackbarCustom({ open, message, type, handleClose = () => {} }) {
+  let openBar = open;
   return (
     <>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={openBar} autoHideDuration={3000} onClose={handleClose}>
         <MuiAlert
           elevation={6}
           variant="filled"

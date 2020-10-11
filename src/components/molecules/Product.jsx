@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { NumberFormatCustom } from '../atoms';
 import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { validate } from '../../utils/product';
 
 const useStyles = makeStyles({
   root: {
@@ -67,6 +68,7 @@ const Product = ({
     ...product,
   });
   const classes = useStyles();
+  const [formErrors, setErrors] = useState({ title: false, price: false });
 
   const handleInputChange = (event) => {
     setProductObj({ ...productObj, [event.target.name]: event.target.value });
@@ -74,9 +76,11 @@ const Product = ({
 
   const saveProduct = () => {
     if (edit) {
-      handleSave(index, productObj);
-      setEdit(!edit);
-      setProductInEdtion(false);
+      if (!checkErrors()) {
+        handleSave(index, productObj);
+        setEdit(!edit);
+        setProductInEdtion(false);
+      }
     } else {
       if (productInEdtion) {
         handleErrorEditing(true);
@@ -85,6 +89,15 @@ const Product = ({
         setEdit(!edit);
       }
     }
+  };
+
+  const checkErrors = () => {
+    const errors = validate(productObj, setErrors);
+
+    if (Object.keys(errors).length === 0) {
+      return false;
+    }
+    return true;
   };
 
   const buyProduct = () => {
@@ -102,12 +115,14 @@ const Product = ({
           <CardMedia className={classes.media} image={image} />
           <CardContent>
             <Title
+              error={formErrors.title}
               name={'title'}
               value={productObj.title}
               disabled={!edit}
               onChange={handleInputChange}
             />
             <Price
+              error={formErrors.price}
               name={'price'}
               value={productObj.price}
               disabled={!edit}

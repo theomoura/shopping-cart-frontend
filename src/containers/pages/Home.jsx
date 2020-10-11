@@ -8,10 +8,12 @@ import {
   deleteProduct,
   editProduct,
   insertProduct,
+  changeRequestError,
   retrieveProducts,
 } from '../../redux/actions/productAction';
 import { insertToCart } from '../../redux/actions/cartAction';
 import { Loading, SnackbarCustom, Text } from '../../components/atoms';
+import { ProductMessages } from '../../components/molecules';
 
 const useStyles = makeStyles({
   titleContainer: {
@@ -28,6 +30,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const [isEditing, setIsEditing] = useState(false);
   const productList = useSelector((state) => state.product.products);
+  const errorRequest = useSelector((state) => state.product.error);
   const [openSnackbarSuccess, setOpenSnackbarSuccess] = useState(false);
   const [openSnackbarError, setOpenSnackbarError] = useState(false);
   const [openSnackbarBuy, setOpenSnackbarBuy] = useState(false);
@@ -95,23 +98,15 @@ const Home = () => {
         handleClickOpen={handleClickOpen}
         setOpenSnackbarError={setOpenSnackbarError}
       />
-      <SnackbarCustom
-        open={openSnackbarError}
-        handleClose={() => setOpenSnackbarError(false)}
-        message={'Ação inválida, um item está sendo editado!'}
-        type={'error'}
-      />
-      <SnackbarCustom
-        open={openSnackbarSuccess}
-        handleClose={() => setOpenSnackbarSuccess(false)}
-        message={'Produto criado com sucesso!'}
-        type={'success'}
-      />
-      <SnackbarCustom
-        open={openSnackbarBuy}
-        handleClose={() => setOpenSnackbarBuy(false)}
-        message={'Item adicionado ao carrinho!'}
-        type={'success'}
+      <ProductMessages
+        openSnackbarError={openSnackbarError}
+        setOpenSnackbarError={() => setOpenSnackbarError(false)}
+        openSnackbarSuccess={openSnackbarSuccess}
+        setOpenSnackbarSuccess={() => setOpenSnackbarSuccess(false)}
+        openSnackbarBuy={openSnackbarBuy}
+        setOpenSnackbarBuy={() => setOpenSnackbarBuy(false)}
+        errorRequest={errorRequest}
+        setErrorRequest={() => dispatch(changeRequestError(false))}
       />
     </div>
   );

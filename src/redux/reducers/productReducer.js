@@ -3,10 +3,12 @@ import {
   DELETE_PRODUCT,
   EDIT_PRODUCT,
   RETRIEVE_PRODUCT,
+  REQUEST_ERROR,
 } from '../actions/_type';
 
 const INITIAL_STATE = {
   products: [],
+  error: false,
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -26,6 +28,11 @@ export default (state = INITIAL_STATE, action) => {
         products: state.products.map((item) =>
           item._id === action.payload._id ? action.payload : item,
         ),
+      };
+    case REQUEST_ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
